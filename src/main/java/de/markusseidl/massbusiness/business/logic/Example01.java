@@ -12,7 +12,7 @@ import javax.persistence.criteria.Root;
 import java.util.Map;
 import java.util.TreeMap;
 
-import static de.markusseidl.massbusiness.business.logic.Example01Descriminator.groupByKeyFor;
+import static de.markusseidl.massbusiness.business.logic.Example01Descriminator.groupByKeyForV1;
 
 /**
  * Example01
@@ -49,7 +49,7 @@ public class Example01 {
         Map<Object, Long> result = new TreeMap<>();
 
         for (StoragePart sp : it) {
-            Long temp = result.get(groupByKeyFor(sp));
+            Long temp = result.get(groupByKeyForV1(sp));
             if (temp == null) {
                 temp = 1L;
             } else {

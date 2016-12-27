@@ -1,6 +1,9 @@
 package de.markusseidl.massbusiness.business.domain;
 
-import javax.persistence.*;
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.Id;
+import javax.persistence.Table;
 
 /**
  * StoragePart / Lagerteil
@@ -24,30 +27,30 @@ public class StoragePart {
     @Column(name = "PART_TYPE")
     private String _partType;
 
-
     @Column(name = "AMOUNT")
-    private float _amountInStorage;
+    private int _amountInStorage;
 
-    // Additional parameters / properties of the storage part omitted.
+    @Column(name = "PRICE_UNIT")
+    private float _pricePerUnit;
 
-    public StoragePart() {
-    }
+    public StoragePart() { }
 
-    public StoragePart(String partId, String partType, float amountInStorage) {
+    public StoragePart(String partId, String partType, int amountInStorage, float pricePerUnit) {
         _partId = partId;
         _partType = partType;
         _amountInStorage = amountInStorage;
+        _pricePerUnit = pricePerUnit;
     }
 
     public String getPartId() {
         return _partId;
     }
 
-    public float getAmountInStorage() {
+    public int getAmountInStorage() {
         return _amountInStorage;
     }
 
-    public void setAmountInStorage(float amountInStorage) {
+    public void setAmountInStorage(int amountInStorage) {
         _amountInStorage = amountInStorage;
     }
 
@@ -58,6 +61,15 @@ public class StoragePart {
     public void setPartType(String partType) {
         _partType = partType;
     }
+
+    public float getPricePerUnit() {
+        return _pricePerUnit;
+    }
+
+    public void setPricePerUnit(float pricePerUnit) {
+        _pricePerUnit = pricePerUnit;
+    }
+
 
     @Override
     public int hashCode() {
