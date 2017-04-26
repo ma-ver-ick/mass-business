@@ -11,7 +11,6 @@
 
   <properties>
     <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-    <skip.configure.wildfly>false</skip.configure.wildfly>
   </properties>
 
   <build>
@@ -24,148 +23,6 @@
           <target>1.8</target>
         </configuration>
       </plugin>
-
-      <plugin>
-        <groupId>org.codehaus.cargo</groupId>
-        <artifactId>cargo-maven2-plugin</artifactId>
-        <version>1.5.1</version>
-        <dependencies>
-          <dependency>
-            <groupId>org.glassfish.deployment</groupId>
-            <artifactId>deployment-client</artifactId>
-            <version>3.1.1</version>
-            <!--<groupId>org.codehaus.cargo</groupId>-->
-            <!--<artifactId>cargo-core-container-glassfish</artifactId>-->
-            <!--<version>1.5.1</version>-->
-          </dependency>
-        </dependencies>
-        <configuration>
-          <!-- Container configuration -->
-          <container>
-            <containerId>glassfish4x</containerId>
-            <type>remote</type>
-          </container>
-
-          <!-- Configuration to use with the container (which will also configure the deployer) -->
-          <configuration>
-            <type>runtime</type>
-            <properties>
-              <cargo.remote.username>admin</cargo.remote.username>
-              <cargo.remote.password>glassfish</cargo.remote.password>#
-              <cargo.hostname>10.211.55.26</cargo.hostname>
-            </properties>
-          </configuration>
-
-          <!-- Deployables configuration -->
-          <deployables>
-            <deployable>
-              <groupId>de.markus-seidl</groupId>
-              <artifactId>mass-business</artifactId>
-              <type>war</type>
-              <properties>
-                <context>/mass</context>
-              </properties>
-              <!--<pingURL>optional url to ping to know if deployable is done or not</pingURL>-->
-              <!--<pingTimeout>optional timeout to ping (default 20000 milliseconds)</pingTimeout>-->
-            </deployable>
-          </deployables>
-
-        </configuration>
-      </plugin>
-
-      <!--
-                  <plugin>
-                      <groupId>org.wildfly.plugins</groupId>
-                      <artifactId>wildfly-maven-plugin</artifactId>
-                      <version>1.1.0.Alpha10</version>
-                      <executions>
-                          &lt;!&ndash; Undeploy the application on clean &ndash;&gt;
-                          <execution>
-                              <id>undeploy</id>
-                              <phase>clean</phase>
-                              <goals>
-                                  <goal>undeploy</goal>
-                              </goals>
-                              <configuration>
-                                  <ignoreMissingDeployment>true</ignoreMissingDeployment>
-                              </configuration>
-                          </execution>
-
-                          &lt;!&ndash; Deploy the JDBC library &ndash;&gt;
-                          <execution>
-                              <id>deploy-driver</id>
-                              <phase>install</phase>
-                              <configuration>
-                                  <skip>${skip.configure.wildfly}</skip>
-                                  <groupId>org.postgresql</groupId>
-                                  <artifactId>postgresql</artifactId>
-                                  <version>9.4.1209.jre7</version>
-                                  <runtimeName>postgresql.jar</runtimeName>
-                              </configuration>
-                              <goals>
-                                  <goal>deploy-artifact</goal>
-                              </goals>
-                          </execution>
-
-                          &lt;!&ndash; Add a data source &ndash;&gt;
-                          <execution>
-                              <id>add-datasource</id>
-                              <phase>install</phase>
-                              <configuration>
-                                  <address>subsystem=datasources,data-source=myDatasource</address>
-                                  <skip>${skip.configure.wildfly}</skip>
-                                  <resources>
-                                      <resource>
-                                          <properties>
-                                              <connection-url>jdbc:postgresql://db/postgres</connection-url>
-                                              <jndi-name>java:jboss/myDatasource</jndi-name>
-                                              <enabled>true</enabled>
-                                              <enable>true</enable>
-                                              <user-name>postgres</user-name>
-                                              <password>mysecretpassword</password>
-                                              <driver-name>postgresql.jar</driver-name>
-                                              <use-ccm>false</use-ccm>
-                                          </properties>
-                                      </resource>
-                                  </resources>
-                              </configuration>
-                              <goals>
-                                  <goal>add-resource</goal>
-                              </goals>
-                          </execution>
-
-                          <execution>
-                              <id>fix-wildlfly-eclipselink-bug</id>
-                              <phase>install</phase>
-                              <configuration>
-                                  <skip>${skip.configure.wildfly}</skip>
-                                  <execute-commands>
-                                      <commands>
-                                          <command>/system-property=eclipselink.archive.factory:add(value=org.jipijapa.eclipselink.JBossArchiveFactoryImpl)</command>
-                                      </commands>
-                                  </execute-commands>
-                              </configuration>
-                              <goals>
-                                  <goal>execute-commands</goal>
-                              </goals>
-                          </execution>
-
-                          &lt;!&ndash; Deploy the application on install &ndash;&gt;
-                          &lt;!&ndash; execution>
-                              <id>deploy</id>
-                              <phase>install</phase>
-                              <goals>
-                                  <goal>deploy</goal>
-                              </goals>
-                          </execution &ndash;&gt;
-
-                      </executions>
-                      <configuration>
-                          <hostname>10.211.55.26</hostname>
-                          <username>admin</username>
-                          <password>Admin#70365</password>
-                      </configuration>
-                  </plugin>-->
     </plugins>
   </build>
 
@@ -178,31 +35,49 @@
     </dependency>
 
     <dependency>
-      <groupId>org.postgresql</groupId>
-      <artifactId>postgresql</artifactId>
-      <version>9.4.1209.jre7</version>
-      <scope>provided</scope>
-    </dependency>
-
-    <dependency>
-      <groupId>org.eclipse.persistence</groupId>
-      <artifactId>org.eclipse.persistence.jpa</artifactId>
-      <version>2.6.1</version>
-      <scope>provided</scope>
-    </dependency>
-
-    <dependency>
-      <groupId>javax</groupId>
-      <artifactId>javaee-api</artifactId>
-      <version>6.0</version>
-      <scope>provided</scope>
-    </dependency>
-
-    <dependency>
       <groupId>log4j</groupId>
       <artifactId>log4j</artifactId>
       <version>1.2.17</version>
     </dependency>
+
+
+    <!-- spec apis such as javax.persistence -->
+    <dependency>
+      <groupId>org.apache.openejb</groupId>
+      <artifactId>javaee-api</artifactId>
+      <version>6.0-5</version>
+      <scope>provided</scope>
+    </dependency>
+
+    <!-- JUNIT -->
+    <dependency>
+      <groupId>junit</groupId>
+      <artifactId>junit</artifactId>
+      <version>4.12</version>
+      <scope>test</scope>
+    </dependency>
+    <!-- openejb container for running tests -->
+    <dependency>
+      <groupId>org.apache.openejb</groupId>
+      <artifactId>openejb-core</artifactId>
+      <version>4.7.4</version>
+      <scope>test</scope>
+    </dependency>
+    <!-- toplink dependencies -->
+    <dependency>
+      <groupId>org.eclipse.persistence</groupId>
+      <artifactId>eclipselink</artifactId>
+      <version>2.6.3</version>
+      <scope>test</scope>
+    </dependency>
+    <dependency>
+      <groupId>org.postgresql</groupId>
+      <artifactId>postgresql</artifactId>
+      <version>9.4.1209.jre7</version>
+      <scope>test</scope>
+    </dependency>
+
+
   </dependencies>
 
 </project>
