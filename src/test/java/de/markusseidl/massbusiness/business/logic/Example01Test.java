@@ -75,7 +75,7 @@ public class Example01Test {
     TestDataGenerator.createData(_em);
 
     Example01 e = new Example01(_em);
-    Map<Object, Long> result = e.run01V1();
+    Map<Object, Long> result = e.run01V1_forGroup();
 
     Assert.assertEquals(Long.valueOf(3333), result.get(StoragePart.TYPE_NORMTEIL));
     Assert.assertEquals(Long.valueOf(3333), result.get(StoragePart.TYPE_VERBRAUCHSMATERIAL));

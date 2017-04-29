@@ -34,7 +34,7 @@ public class Example01 {
   /**
    * JPQL-version of this method: "SELECT sp, COUNT(sp) FROM StoragePart sp GROUP BY sp._partType"
    */
-  public Map<Object, Long> run01V1() {
+  public Map<Object, Long> run01V1_forGroup() {
     CriteriaBuilder cb = _em.getCriteriaBuilder();
 
     CriteriaQuery<StoragePart> dataQuery = cb.createQuery(StoragePart.class);
